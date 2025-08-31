@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // local frontend
-      "https://subscription-tracker-frontend-rpfu.onrender.com", // deployed frontend
+      `${process.env.FRONTEND_URL}`, // deployed frontend
     ],
     credentials: true, // allow cookies
   })
