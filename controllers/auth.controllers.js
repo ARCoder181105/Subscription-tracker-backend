@@ -59,10 +59,10 @@ export const registerUser = async (req, res, next) => {
 
         const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(user._id);
 
-         const options = {
+        const options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         };
 
         const createdUser = await User.findById(user._id).select("-password -refreshToken");
@@ -101,10 +101,10 @@ export const loginUser = async (req, res, next) => {
 
         const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(user._id);
 
-       const options = {
+        const options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         };
 
         const createdUser = await User.findById(user._id).select("-password -refreshToken");
@@ -141,7 +141,7 @@ export const googleAuthCallback = async (req, res, next) => {
         const options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         };
 
         res.cookie("accessToken", accessToken, options);
@@ -163,10 +163,11 @@ export const githubAuthCallback = async (req, res, next) => {
 
         const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(user._id);
 
-         const options = {
+        const options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            // path: "/api/v1/auth/refresh", // important!
         };
 
         res.cookie("accessToken", accessToken, options);
@@ -205,10 +206,10 @@ export const getNewAcessToken = async (req, res, next) => {
         user.refreshToken = newRefreshToken;
         await user.save({ validateBeforeSave: false });
 
-         const options = {
+        const options = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         };
 
         return res
