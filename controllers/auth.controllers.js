@@ -144,6 +144,10 @@ export const googleAuthCallback = async (req, res, next) => {
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         };
 
+        if (accessToken && refreshToken) {
+            sendLoginMail(createdUser.email, createdUser.username);
+        }
+
         res.cookie("accessToken", accessToken, options);
         res.cookie("refreshToken", refreshToken, options);
 
@@ -169,6 +173,10 @@ export const githubAuthCallback = async (req, res, next) => {
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             // path: "/api/v1/auth/refresh", // important!
         };
+
+        if (accessToken && refreshToken) {
+            sendLoginMail(createdUser.email, createdUser.username);
+        }
 
         res.cookie("accessToken", accessToken, options);
         res.cookie("refreshToken", refreshToken, options);
