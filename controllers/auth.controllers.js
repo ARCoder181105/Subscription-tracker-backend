@@ -133,6 +133,7 @@ export const loginUser = async (req, res, next) => {
 export const googleAuthCallback = async (req, res, next) => {
     try {
         const user = req.user; // already from DB
+        // console.log(user)
 
         if (!user) throw new ApiError(400, "Google authentication failed");
 
@@ -145,7 +146,7 @@ export const googleAuthCallback = async (req, res, next) => {
         };
 
         if (accessToken && refreshToken) {
-            sendLoginMail(createdUser.email, createdUser.username);
+            sendLoginMail(user.email, user.username);
         }
 
         res.cookie("accessToken", accessToken, options);
@@ -175,7 +176,7 @@ export const githubAuthCallback = async (req, res, next) => {
         };
 
         if (accessToken && refreshToken) {
-            sendLoginMail(createdUser.email, createdUser.username);
+            sendLoginMail(user.email, user.username);
         }
 
         res.cookie("accessToken", accessToken, options);
