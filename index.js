@@ -18,8 +18,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors({
-  origin: "http://localhost:3000",  // your frontend dev server
-  credentials: true                 // allow cookies
+  origin: "https://subscription-tracker-frontend-rpfu.onrender.com",
+  credentials: true
 }));
 app.use(morgan('dev'));
 app.use(cookieParser());
