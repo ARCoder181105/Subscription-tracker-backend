@@ -10,6 +10,7 @@ import session from "express-session";
 import passport from "./utils/passport.js";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import "./utils/cronJob.js"
 
 const app = express();
 const PORT = process.env.PORT || 5000;
